@@ -49,7 +49,13 @@ const songs = [
         displayName: "Circles",
         cover: "assets/Post Malone/Hollywood's Bleeding/Hollywood's Bleeding.jpg",
         artist: "Post Malone",
-    },  
+    },
+    {
+        path: "assets/Duki/AMERI/01. Leitmotiv.mp3",
+        displayName: "Leitmotiv",
+        cover: "assets/Duki/AMERI/AMERI.jpg",
+        artist: "Duki",
+    },
     {
         path: "assets/Duki/AMERI/02. Nueva Era.mp3",
         displayName: "Nueva Era",
