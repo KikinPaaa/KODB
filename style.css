@@ -59,7 +59,29 @@ body{
     background-color: #800080;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow: auto;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #800080 #333333;
+}
+
+.sidebar::-webkit-scrollbar{
+    width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background-color:#800080 ;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background-color: #9b3c9b;
+}
+
+.sidebar::-webkit-scrollbar-track{
+    background: #333333;
+    border-radius: 10px;
 }
 
 .sidebar ul{
