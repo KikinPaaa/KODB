@@ -81,9 +81,82 @@
             <i class="fa-solid fa-forward" title="Next" id="Next"></i>
             <i class="fa-solid fa-shuffle" title="Shuffle" id="Shuffle"></i>
         </div>
+        <audio id="audio-player" controls style="display:none;"></audio>
     </div>
 
-    <script src="index.js" defer></script>
+    <script src="index.js" defer>
+        const artists = [
+            {
+                name: "DUKI",
+                songs: [
+                    { title: "Ameri", url: "/assets/Duki/AMERI/15. Ameri.mp3" },
+                    { title: "Vida de Rock", url: "/assets/Duki/AMERI/08. Vida De Rock.mp3" }
+                ],
+                image: "/assets/Duki/AMERI/AMERI.jpg"
+            },
+        ]
+
+        const sidebar = document.querySelector('.sidebar ul');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playerImg = document.getElementById('player-img');
+        const audioPlayer = document.getElementById('audio-player');
+        const progressBar = document.querySelector('.progress');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const durationDisplay = document.getElementById('duration');
+
+        artists.forEach(artist => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.textContent = artist.name;
+            a.href = "#";
+            a.addEventListener('click', () => loadSongs(artist));
+            li.appendChild(a);
+            sidebar.appendChild(li);
+        });
+
+        function loadSongs(artist) {
+            playerTitle.textContent = 'Selecciona una canción';
+            playerArtist.textContent = artist.name;
+            playerImg.src = artist.image;
+            const playerContainer = document.querySelector('.container');
+            const existingSongs = playerContainer.querySelectorAll('.song');
+            existingSongs.forEach(song => song.remove());
+            artist.songs.forEach(song => {
+                const songElement = document.createElement('div');
+                songElement.textContent = song.title;
+                songElement.classList.add('song');
+                songElement.addEventListener('click', () => playSong(song));
+                playerContainer.appendChild(songElement);
+            });
+        }
+
+        function playSong(song) {
+            audioPlayer.src = song.url;
+            audioPlayer.style.display = 'block';  // Mostrar el reproductor
+            audioPlayer.play();
+            playerTitle.textContent = song.title;
+            playerArtist.textContent = song.artist || "Desconocido";
+            audioPlayer.onloadedmetadata = () => {
+                durationDisplay.textContent = formatTime(audioPlayer.duration);
+            };
+
+            audioPlayer.ontimeupdate = () => {
+                progressBar.style.width = `${(audioPlayer.currentTime / audioPlayer.duration) * 100}%`;
+                currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+            };
+        }
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+    </script>
+
+    
+
 </body>
 
 </html>
